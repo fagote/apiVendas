@@ -17,9 +17,12 @@ public class Vendedor {
 	
 	@Column(nullable = false)
 	private String nome;
+	
+	@Column(nullable = false)
 	private int total_vendas;
 	private float media_vendas_diaria;
 	private String data;
+	
 	public Long getId() {
 		return id;
 	}
@@ -50,6 +53,7 @@ public class Vendedor {
 	public void setData(String data) {
 		this.data = data;
 	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
