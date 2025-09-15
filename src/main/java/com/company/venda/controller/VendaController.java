@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.venda.model.Venda;
+import com.company.venda.model.Vendedor;
 import com.company.venda.repository.VendaRepository;
+import com.company.venda.repository.VendedorRepository;
 
 
 @RestController 
@@ -22,6 +24,9 @@ public class VendaController {
 	@Autowired
 	private VendaRepository vendaR;
 	
+	@Autowired
+	private VendedorRepository vendedorR;
+	
 	@GetMapping
 	public List<Venda> listar(){
 		return vendaR.findAll();
@@ -30,6 +35,17 @@ public class VendaController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Venda cadastro(@RequestBody Venda venda) {
+		
+		Vendedor vendedor = vendedorR.findById(venda.getVendedor().getId())
+                .orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
+		
+		vendedor.setTotal_vendas(vendedor.getTotal_vendas()+1);
+		vendedor.addDataVenda(venda.getData_venda());
+		//vendedor.setMedia_vendas_diaria(vendedor.getMedia_vendas_diaria());
+		vendedorR.save(vendedor);
+		
+		venda.setVendedor(vendedor);
+		
 		return vendaR.save(venda);
 	}
 

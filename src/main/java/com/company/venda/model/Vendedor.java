@@ -1,8 +1,12 @@
 package com.company.venda.model;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +23,22 @@ public class Vendedor {
 	private String nome;
 	
 	@Column(nullable = false)
-	private int total_vendas;
-	private float media_vendas_diaria;
-	private String data;
+	private int total_vendas = 0;
+	private float media_vendas_diaria = 0;
+	//private Date data;
+	
+	@ElementCollection
+	private List<LocalDate> datas_venda;
+	
+	
+	
+	public List<LocalDate> getDatas_venda() {
+		return datas_venda;
+	}
+	
+	public void addDataVenda(LocalDate data) {
+        this.datas_venda.add(data);
+    }
 	
 	public Long getId() {
 		return id;
@@ -47,12 +64,14 @@ public class Vendedor {
 	public void setMedia_vendas_diaria(float media_vendas_diaria) {
 		this.media_vendas_diaria = media_vendas_diaria;
 	}
-	public String getData() {
+	
+	/*
+	public Date getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
-	}
+	}*/
 	
 	@Override
 	public int hashCode() {

@@ -1,5 +1,7 @@
 package com.company.venda.model;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Venda {
@@ -16,10 +20,13 @@ public class Venda {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String data_venda;
+	private LocalDate data_venda;
 	private float valor;
-	private int id_vendedor;
-	private String nome_vendedor;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_vendedor")
+	private Vendedor vendedor;
+	
 	
 	
 	public Long getId() {
@@ -28,10 +35,10 @@ public class Venda {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getData_venda() {
+	public LocalDate getData_venda() {
 		return data_venda;
 	}
-	public void setData_venda(String data_venda) {
+	public void setData_venda(LocalDate data_venda) {
 		this.data_venda = data_venda;
 	}
 	public float getValor() {
@@ -40,18 +47,23 @@ public class Venda {
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-	public int getId_vendedor() {
-		return id_vendedor;
+	
+	public Vendedor getVendedor() {
+		return vendedor;
 	}
-	public void setId_vendedor(int id_vendedor) {
-		this.id_vendedor = id_vendedor;
+	
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
 	}
-	public String getNome_vendedor() {
-		return nome_vendedor;
+	
+	public String getNomeVendedor() {
+	    if (vendedor != null) {
+	        return vendedor.getNome();
+	    }
+	    return null;
 	}
-	public void setNome_vendedor(String nome_vendedor) {
-		this.nome_vendedor = nome_vendedor;
-	}
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
