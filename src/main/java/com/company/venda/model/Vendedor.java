@@ -2,6 +2,7 @@ package com.company.venda.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class Vendedor {
 	@Column(nullable = false)
 	private int total_vendas = 0;
 	private float media_vendas_diaria = 0;
-	//private Date data;
+	//private int diasAtivos = 0;
 	
 	@ElementCollection
 	private List<LocalDate> datas_venda;
@@ -36,8 +37,17 @@ public class Vendedor {
 		return datas_venda;
 	}
 	
-	public void addDataVenda(LocalDate data) {
-        this.datas_venda.add(data);
+	public int addDataVenda(LocalDate data) {
+		
+		if (this.datas_venda == null) {
+	        this.datas_venda = new ArrayList<>();
+	    }
+
+	    if (!this.datas_venda.contains(data)) {
+	        this.datas_venda.add(data);
+	    }
+	    
+	    return datas_venda.size();
     }
 	
 	public Long getId() {
@@ -64,6 +74,8 @@ public class Vendedor {
 	public void setMedia_vendas_diaria(float media_vendas_diaria) {
 		this.media_vendas_diaria = media_vendas_diaria;
 	}
+	
+	
 	
 	/*
 	public Date getData() {

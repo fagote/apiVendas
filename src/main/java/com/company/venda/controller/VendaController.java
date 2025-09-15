@@ -36,12 +36,14 @@ public class VendaController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Venda cadastro(@RequestBody Venda venda) {
 		
+		int diasAtivos = 0;
+		
 		Vendedor vendedor = vendedorR.findById(venda.getVendedor().getId())
                 .orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
 		
 		vendedor.setTotal_vendas(vendedor.getTotal_vendas()+1);
-		vendedor.addDataVenda(venda.getData_venda());
-		//vendedor.setMedia_vendas_diaria(vendedor.getMedia_vendas_diaria());
+		diasAtivos = vendedor.addDataVenda(venda.getData_venda());
+		vendedor.setMedia_vendas_diaria((float)vendedor.getTotal_vendas()/(float)diasAtivos);
 		vendedorR.save(vendedor);
 		
 		venda.setVendedor(vendedor);
