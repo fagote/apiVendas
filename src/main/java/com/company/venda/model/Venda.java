@@ -1,6 +1,5 @@
 package com.company.venda.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -20,7 +19,7 @@ public class Venda {
 	private Long id;
 	
 	@Column(nullable = false)
-	private LocalDate data_venda;
+	private LocalDate dataVenda;
 	private float valor;
 	
 	@ManyToOne
@@ -35,11 +34,11 @@ public class Venda {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public LocalDate getData_venda() {
-		return data_venda;
+	public LocalDate getDataVenda() {
+		return dataVenda;
 	}
-	public void setData_venda(LocalDate data_venda) {
-		this.data_venda = data_venda;
+	public void setDataVenda(LocalDate data_venda) {
+		this.dataVenda = data_venda;
 	}
 	public float getValor() {
 		return valor;
@@ -68,6 +67,7 @@ public class Venda {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
