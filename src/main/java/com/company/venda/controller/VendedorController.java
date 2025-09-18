@@ -31,5 +31,6 @@ public class VendedorController {
 	public Vendedor cadastro(@RequestBody Vendedor vendedor) {
 		return vendedorRepo.save(vendedor);
 	}
+	
 
 }

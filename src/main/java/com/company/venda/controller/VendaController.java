@@ -49,8 +49,11 @@ public class VendaController {
                 .orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
 		
 		vendedor.setTotal_vendas(vendedor.getTotal_vendas()+1);
+		
 		diasAtivos = vendedor.addDataVenda(venda.getDataVenda());
+		
 		vendedor.setMedia_vendas_diaria((float)vendedor.getTotal_vendas()/(float)diasAtivos);
+		
 		vendedorR.save(vendedor);
 		
 		venda.setVendedor(vendedor);

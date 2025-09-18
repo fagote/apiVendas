@@ -84,6 +84,9 @@ public class Vendedor {
 		this.data = data;
 	}*/
 	
+	
+	// serve para o java comparar dois objetos iguais se forem usados com 
+	//hashmap e hashset
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

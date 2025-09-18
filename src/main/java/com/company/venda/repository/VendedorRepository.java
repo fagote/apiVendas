@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.company.venda.model.Vendedor;
 
 
+// a interface repository implementa as funções básicas de crud() para evitar retrabalho
 @Repository
 public interface VendedorRepository extends JpaRepository<Vendedor, Long>{
 
